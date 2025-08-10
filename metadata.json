@@ -1,0 +1,5 @@
+{
+  "name": "The Sequencer ",
+  "description": "An interactive piano keyboard that uses Gemini to suggest chord and note progressions. Play a note, and the AI will suggest the next one. Press Tab to autocomplete.",
+  "requestFramePermissions": []
+}
