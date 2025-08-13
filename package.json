@@ -1,5 +1,6 @@
 {
   "name": "the-sequencer",
+  "homepage": "https://playmidi.live",
   "private": true,
   "version": "0.0.0",
   "type": "module",
