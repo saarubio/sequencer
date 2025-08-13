@@ -12,7 +12,7 @@ import { createMidiFile } from './services/midiService';
 import { generateOctaveKeys, noteToMidi } from './constants';
 import { Genre, Quantization, Note, MusicalEvent, OscillatorType, LfoState, LfoShape, LfoTarget, MelodyPreset } from './types';
 import { Knob } from './components/Knob';
-import { PRESETS } from './presets';
+import { PRESETS, getAllPresets } from './presets';
 import { Lfos } from './components/Lfos';
 import { LFO_SPEEDS } from './constants';
 import { PresetsModal } from './components/PresetsModal';
@@ -41,6 +41,7 @@ const App: React.FC = () => {
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [octave, setOctave] = useState<number>(3);
   const [activeKeys, setActiveKeys] = useState<Set<string>>(new Set());
+  const [currentPresetName, setCurrentPresetName] = useState<string | null>(null);
 
 
   // Controls State
@@ -413,6 +414,7 @@ const App: React.FC = () => {
   const handleClear = useCallback(() => {
     setPlayedNotes([]);
     setSuggestion(null);
+    setCurrentPresetName(null);
     pendingNotesRef.current = [];
     if(isPlaying) {
         Tone.Transport.stop();
@@ -490,6 +492,7 @@ const App: React.FC = () => {
     }
     setPlayedNotes(preset.sequence);
     setBpm(preset.bpm);
+    setCurrentPresetName(preset.name);
     setSuggestion(null);
     pendingNotesRef.current = [];
     
@@ -506,6 +509,16 @@ const App: React.FC = () => {
       currentLfos.map(lfo => (lfo.id === id ? { ...lfo, ...newConfig } : lfo))
     );
   }, []);
+
+  // Load a random preset when the app first loads
+  useEffect(() => {
+    const allPresets = getAllPresets();
+    if (allPresets.length > 0) {
+      const randomIndex = Math.floor(Math.random() * allPresets.length);
+      const randomPreset = allPresets[randomIndex];
+      handleLoadPreset(randomPreset);
+    }
+  }, []); // Empty dependency array means this runs only once on mount
 
   useEffect(() => {
     const handleKeyDown = (event: KeyboardEvent) => {
@@ -617,6 +630,7 @@ const App: React.FC = () => {
               quantization={quantization}
               minMidi={midiRange.minMidi}
               maxMidi={midiRange.maxMidi}
+              currentPresetName={currentPresetName}
             />
           </div>
           

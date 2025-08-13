@@ -33,6 +33,7 @@ interface NoteDisplayProps {
   quantization: Quantization;
   minMidi: number;
   maxMidi: number;
+  currentPresetName: string | null;
 }
 
 const LoadingSpinner: React.FC = () => (
@@ -101,7 +102,7 @@ const TOTAL_EVENT_WIDTH = EVENT_WIDTH_PX + GAP_PX;
 
 export const NoteDisplay: React.FC<NoteDisplayProps> = ({ 
     playedNotes, suggestion, isLoading, onClear, onAddRest, onDeleteLast, 
-    isPlaying, isAiModeOn, quantization, minMidi, maxMidi
+    isPlaying, isAiModeOn, quantization, minMidi, maxMidi, currentPresetName
 }) => {
   const scrollContainerRef = useRef<HTMLDivElement>(null);
   const playbackHeadRef = useRef<HTMLDivElement>(null);
@@ -162,6 +163,12 @@ export const NoteDisplay: React.FC<NoteDisplayProps> = ({
 
   return (
     <div className="h-full bg-black/50 rounded-lg flex flex-col border border-gray-700/50 shadow-inner overflow-hidden">
+      {/* Preset Title */}
+      <div className="flex-shrink-0 px-4 py-2 border-b border-gray-700/50 bg-gray-900/30">
+        <h3 className="text-sm font-semibold text-transparent bg-clip-text bg-gradient-to-r from-purple-400 to-cyan-400">
+          {currentPresetName || "Create Your Magic ✨"}
+        </h3>
+      </div>
       <div ref={scrollContainerRef} className="relative z-10 flex-grow overflow-x-auto overflow-y-hidden">
         
         <div 
