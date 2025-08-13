@@ -16,6 +16,8 @@ import { PRESETS } from './presets';
 import { Lfos } from './components/Lfos';
 import { LFO_SPEEDS } from './constants';
 import { PresetsModal } from './components/PresetsModal';
+import SEO from './components/SEO';
+
 
 type PartEvent = { time: number, pitch: Note[] | null, duration: number };
 
@@ -384,6 +386,7 @@ const App: React.FC = () => {
             return newActiveKeys;
         });
     }, 200);
+    
   }, [playSound, commitMusicalEvent]);
 
   const handleBackspace = useCallback(() => {
@@ -428,6 +431,7 @@ const App: React.FC = () => {
     document.body.appendChild(link);
     link.click();
     document.body.removeChild(link);
+    
   }, [playedNotes, bpm, quantization]);
 
   const handlePlayStop = useCallback(() => {
@@ -488,6 +492,7 @@ const App: React.FC = () => {
     setBpm(preset.bpm);
     setSuggestion(null);
     pendingNotesRef.current = [];
+    
   }, [isPlaying]);
 
   const returnFocusToApp = () => {
@@ -531,7 +536,9 @@ const App: React.FC = () => {
   }, [handleTab, handleBackspace, playNote, handlePlayStop, handleAddRest, keyToNoteMap]);
 
   return (
-    <div className="min-h-screen bg-black flex flex-col items-center p-2 md:p-4 font-sans overflow-hidden">
+    <>
+      <SEO />
+      <div className="min-h-screen bg-black flex flex-col items-center p-2 md:p-4 font-sans overflow-hidden">
       <div className="absolute top-0 left-0 w-full h-full overflow-hidden z-0">
           <div className="absolute top-[-20%] left-[-20%] w-[50vw] h-[50vw] bg-[radial-gradient(circle_at_center,_rgba(167,139,250,0.2)_0%,transparent_70%)]"></div>
           <div className="absolute bottom-[-20%] right-[-20%] w-[50vw] h-[50vw] bg-[radial-gradient(circle_at_center,_rgba(56,189,189,0.2)_0%,transparent_70%)]"></div>
@@ -540,10 +547,13 @@ const App: React.FC = () => {
       <div className="w-full max-w-7xl mx-auto z-10 flex flex-col h-[calc(100vh-1rem)] md:h-[calc(100vh-2rem)]">
                 <header className="flex-shrink-0 mb-2 md:mb-4 p-2 md:p-4 bg-black/30 rounded-lg backdrop-blur-sm border border-gray-700/50">
           {/* Title Section */}
-          <div className="flex justify-center mb-2 md:mb-4">
+          <div className="text-center mb-2 md:mb-4">
             <h1 className="text-xl md:text-3xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-purple-400 to-cyan-400">
-              Midi Sequencer
+              The Sequencer
             </h1>
+            <p className="text-sm md:text-base text-gray-400 mt-1">
+              Free Online MIDI Synthesizer & Piano - Create, Learn & Export Music
+            </p>
           </div>
           
           {/* Controls Section */}
@@ -639,6 +649,7 @@ const App: React.FC = () => {
         currentGenre={genre}
       />
     </div>
+    </>
   );
 };
 

@@ -1,0 +1,31 @@
+{
+  "name": "The Sequencer - Free Online MIDI Synthesizer & Piano",
+  "short_name": "The Sequencer",
+  "description": "Free online MIDI synthesizer, piano, and oscillator for music creation and learning",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#000000",
+  "theme_color": "#000000",
+  "orientation": "landscape-primary",
+  "scope": "/",
+  "lang": "en",
+  "categories": ["music", "education", "productivity"],
+  "icons": [],
+  "screenshots": [],
+  "shortcuts": [
+    {
+      "name": "Play Piano",
+      "short_name": "Piano",
+      "description": "Open the virtual piano interface",
+      "url": "/#piano",
+      "icons": []
+    },
+    {
+      "name": "Synthesizer",
+      "short_name": "Synth",
+      "description": "Open the synthesizer controls",
+      "url": "/#synthesizer",
+      "icons": []
+    }
+  ]
+} 
